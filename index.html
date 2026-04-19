@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 <style>
 :root {
   --bg:#050507; --bg2:#0B0B0F; --fg:#F2EFE8;
@@ -58,11 +59,11 @@ body{background:var(--bg);color:var(--fg);font-family:'Poppins',sans-serif;overf
 
 em {font-style:normal;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 10px 20px rgba(240,180,41,0.3)}
 
-/* CURSOR */
-#c-dot{position:fixed;z-index:9999;width:10px;height:10px;background:var(--yellow);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,box-shadow .25s;will-change:transform;box-shadow:0 0 15px var(--yellow)}
-#c-ring{position:fixed;z-index:9998;width:44px;height:44px;border:1.5px solid rgba(240,180,41,0.5);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);will-change:transform;transition:width .3s,height .3s,border-color .3s,box-shadow .3s;box-shadow:0 0 15px rgba(240,180,41,0.15), inset 0 0 15px rgba(240,180,41,0.15)}
-.cursor-hover #c-dot{width:6px;height:6px;background:var(--fg)}
-.cursor-hover #c-ring{width:64px;height:64px;border-color:var(--yellow);box-shadow:0 0 35px rgba(240,180,41,0.6), inset 0 0 35px rgba(240,180,41,0.4)}
+/* CURSOR ORIGINAL PREMIUM */
+#c-dot{position:fixed;z-index:9999;width:8px;height:8px;background:var(--yellow);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s;will-change:transform;box-shadow:0 0 15px var(--yellow)}
+#c-ring{position:fixed;z-index:9998;width:44px;height:44px;border:1.5px solid rgba(240,180,41,0.6);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);will-change:transform;transition:width .3s,height .3s,border-color .3s;box-shadow:0 0 20px rgba(240,180,41,0.1), inset 0 0 20px rgba(240,180,41,0.1)}
+.cursor-hover #c-dot{width:0;height:0;}
+.cursor-hover #c-ring{width:64px;height:64px;border-color:var(--yellow);background:rgba(240,180,41,0.05);box-shadow:0 0 30px rgba(240,180,41,0.4), inset 0 0 30px rgba(240,180,41,0.2)}
 
 /* LOADER */
 #loader{position:fixed;inset:0;z-index:8000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3rem}
@@ -84,15 +85,15 @@ nav.solid{background:rgba(10,10,10,0.88);backdrop-filter:blur(24px);padding:1.2r
 .nav-links a:hover{color:var(--fg)} .nav-links a:hover::after{right:0}
 
 /* HERO */
-#hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:120px 0 60px}
 .hero-bg-img{position:absolute;inset:0;background-size:cover;background-position:center 30%;will-change:transform}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(5,5,7,0.98) 0%,rgba(5,5,7,0.85) 45%,rgba(5,5,7,0.2) 100%);z-index:1}
 .hero-inner{position:relative;z-index:2;padding:0 4vw;max-width:1200px;width:100%}
 .hero-eyebrow{font-size:0.75rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:2rem;opacity:0;display:flex;align-items:center;gap:1.5rem}
 .hero-eyebrow::before{content:'';width:50px;height:1.5px;background:var(--yellow);box-shadow:0 0 10px var(--yellow)}
-.hero-h1{font-weight:900;font-size:var(--h1);line-height:0.92;letter-spacing:-0.03em;text-transform:uppercase;margin-bottom:2.5rem}
-.hero-h1 span.text-grad{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 20px 50px rgba(240,180,41,0.4)}
-.hero-sub{font-size:clamp(1.2rem,1.7vw,1.45rem);font-weight:300;color:var(--muted);max-width:520px;line-height:1.8;margin-bottom:3.5rem;opacity:0;transform:translateY(30px)}
+.hero-h1{font-weight:900;font-size:var(--h1);line-height:0.92;letter-spacing:-0.03em;text-transform:uppercase;margin-bottom:2.5rem;white-space:nowrap}
+.hero-h1 span.text-grad{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 20px 50px rgba(240,180,41,0.4);padding:0 20px 15px 0;display:inline-block;margin-bottom:-15px}
+.hero-sub{font-size:clamp(1.05rem,1.5vw,1.25rem);font-weight:300;color:var(--muted);max-width:520px;line-height:1.8;margin-bottom:3.5rem;opacity:0;transform:translateY(30px)}
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;transform:translateY(20px)}
 .btn{display:inline-flex;align-items:center;gap:0.6rem;padding:1rem 2.2rem;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;cursor:none;border:none;transition:transform 0.35s var(--ease-bounce),box-shadow 0.3s}
 .btn:hover{transform:translateY(-3px) scale(1.03)}
@@ -127,8 +128,8 @@ nav.solid{background:rgba(10,10,10,0.88);backdrop-filter:blur(24px);padding:1.2r
 .g-item{position:relative;overflow:hidden;background:#1a1a1a;will-change:transform,clip-path;border-radius:12px;transform-style:preserve-3d;box-shadow:0 15px 40px rgba(0,0,0,0.6)}
 .g-item:hover{z-index:10;box-shadow:0 40px 80px rgba(0,0,0,0.9), 0 0 30px rgba(240,180,41,0.25);border:1px solid rgba(240,180,41,0.4)}
 .g-item:nth-child(1){grid-row:span 2} .g-item:nth-child(5){grid-column:span 2}
-.g-item img{width:100%;height:100%;min-height:260px;object-fit:cover;display:block;transform:scale(1.15) translateZ(-10px);filter:grayscale(30%) contrast(1.1);transition:filter 0.6s,transform 0.8s var(--ease-out);will-change:transform;pointer-events:none}
-.g-item:hover img{filter:grayscale(0%) contrast(1.05);transform:scale(1.05) translateZ(0)}
+.g-item img{width:100%;height:100%;min-height:260px;object-fit:cover;display:block;transform:scale(1.3) translateZ(-10px);filter:grayscale(30%) contrast(1.1);transition:filter 0.6s;will-change:transform;pointer-events:none}
+.g-item:hover img{filter:grayscale(0%) contrast(1.05);}
 .g-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,7,0.95) 0%,transparent 45%);opacity:0;transition:opacity 0.4s;display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;transform:translateZ(40px);pointer-events:none}
 .g-item:hover .g-overlay{opacity:1}
 .g-title{font-weight:700;font-size:1.1rem;color:var(--fg);margin-bottom:0.4rem;transform:translateY(12px);opacity:0;transition:transform 0.4s var(--ease-out) 0.05s,opacity 0.4s 0.05s}
@@ -166,8 +167,8 @@ nav.solid{background:rgba(10,10,10,0.88);backdrop-filter:blur(24px);padding:1.2r
 
 /* PAP */
 #pap{padding:10rem 4vw;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center}
-.pap-img-wrap{position:relative}
-.pap-img-wrap img{width:100%;height:580px;object-fit:cover;display:block;will-change:clip-path}
+.pap-img-wrap{position:relative; overflow: hidden; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);}
+.pap-img-wrap img{width:100%;height:650px;object-fit:cover;display:block;will-change:clip-path,transform}
 .pap-img-accent{position:absolute;bottom:-1.5rem;right:-1.5rem;width:120px;height:120px;background:var(--yellow);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2}
 .pap-img-accent strong{font-weight:900;font-size:2rem;color:#000;letter-spacing:-0.04em;line-height:1}
 .pap-img-accent span{font-size:0.65rem;font-weight:500;color:rgba(0,0,0,0.6);letter-spacing:0.1em;text-transform:uppercase}
@@ -221,6 +222,21 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
   .footer-bottom{flex-direction:column;gap:0.5rem;text-align:center}
   #prog-indicator{display:none}
 }
+/* PREMIUM INTERACTIVE ADDITIONS */
+.hero-dust { position: absolute; border-radius: 50%; background: var(--fg); opacity: 0; pointer-events: none; z-index: 10; box-shadow: 0 0 8px var(--fg); }
+.skill-card { --mx: 50%; --my: 50%; }
+.skill-card::after { background: radial-gradient(600px circle at var(--mx) var(--my), rgba(240,180,41,0.15), transparent 40%) !important; opacity: 0; transition: opacity 0.3s; z-index: 0 !important; }
+.skill-card:hover::after { opacity: 1 !important; }
+
+.wave-bg-text { position: absolute; left: 0%; top: 30%; font-size: 25vw; font-weight: 900; color: rgba(255,255,255,0.015); white-space: nowrap; pointer-events: none; z-index: 0; user-select: none; }
+
+/* SECTION AMBIENCE GLOWS */
+#instituicoes, #pre-evento, #programme, #pap { position: relative; z-index: 1; overflow: hidden; }
+#instituicoes::before { content:''; position: absolute; bottom: -20%; left: -10%; width: 700px; height: 700px; background: var(--yellow); filter: blur(250px); opacity: 0.12; z-index: -1; border-radius: 50%; pointer-events:none; }
+#programme::before { content:''; position: absolute; top: -10%; right: -20%; width: 800px; height: 800px; background: var(--accent); filter: blur(250px); opacity: 0.12; z-index: -1; border-radius: 50%; pointer-events:none; }
+#pap::before { content:''; position: absolute; bottom: 0%; left: 30%; width: 500px; height: 500px; background: var(--yellow); filter: blur(200px); opacity: 0.1; z-index: -1; border-radius: 50%; pointer-events:none; }
+.video-glow-wrap { position: relative; z-index: 5; }
+.video-glow-wrap::before { content:''; position: absolute; inset: -20px; background: var(--gradient); filter: blur(50px); opacity: 0.25; z-index: -1; border-radius: 12px; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -272,11 +288,11 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
 <section id="hero"><div class="hero-bg-img" id="heroBg" style="background-image:url('37-LMF_9935.jpg')"></div>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
-    <div id="hero-logos" style="display:flex; gap:2rem; margin-bottom: 2rem; opacity:0; transform:translateY(20px); align-items:center; flex-wrap:wrap;">
-       <img src="logo-ipdj.png.png" alt="IPDJ" style="max-height:80px; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));" onerror="this.style.display='none'">
-       <img src="logo-atosinhos.png.png" alt="Matosinhos" style="max-height:80px; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));" onerror="this.style.display='none'">
-       <img src="logo-pned.png.png" alt="PNED" style="max-height:80px; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));" onerror="this.style.display='none'">
-       <img src="logo-escola.png" alt="Escola" style="max-height:80px; border-left:1px solid rgba(255,255,255,0.2); padding-left:2rem; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));" onerror="this.style.display='none'">
+    <div id="hero-logos" style="display:flex; gap:1.5rem; margin-bottom: 1.5rem; opacity:0; transform:translateY(20px); align-items:center; flex-wrap:wrap;">
+       <img src="logo-ipdj.png.png" alt="IPDJ" style="max-height:50px; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));" onerror="this.style.display='none'">
+       <img src="logo-atosinhos.png.png" alt="Matosinhos" style="max-height:50px; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));" onerror="this.style.display='none'">
+       <img src="logo-pned.png.png" alt="PNED" style="max-height:50px; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));" onerror="this.style.display='none'">
+       <img src="logo-escola.png" alt="Escola" style="max-height:50px; border-left:1px solid rgba(255,255,255,0.2); padding-left:1.5rem; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));" onerror="this.style.display='none'">
     </div>
     <div class="hero-eyebrow" id="hero-eyebrow">Prova de Aptidão Profissional · 2025/26</div>
     <h1 class="hero-h1" id="hero-h1"></h1>
@@ -296,6 +312,7 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
 <div class="wave-section" id="wave">
   <div class="sticky-container" id="wave-sticky">
     <div class="wave-bg"></div>
+    <div class="wave-bg-text" id="waveBgTxt">SEMINÁRIO</div>
     <div class="wave-section-label">O Projeto</div>
     <div class="wave-inner">
       <div class="col-left" id="wave-left">
@@ -343,7 +360,8 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
     <div style="padding-right: 4rem;">
       <div class="video-eyebrow">A Preparação</div>
       <h2 class="video-h2">Fase <em>Pré-Evento</em></h2>
-      <div style="border-left: 2px solid var(--border); padding-left: 2.5rem; display: flex; flex-direction: column; gap: 3rem; margin-top: 4rem;">
+      <div class="timeline-wrap" style="position:relative; border-left: 2px solid var(--border); padding-left: 2.5rem; display: flex; flex-direction: column; gap: 3rem; margin-top: 4rem;">
+        <div class="timeline-progress" style="position:absolute; top:0; left:-2px; width:2px; height:0%; background:var(--gradient); box-shadow:0 0 15px var(--yellow); z-index:1;"></div>
         <div style="position: relative;">
           <div style="position: absolute; left: -2.9rem; top: 0.2rem; width: 14px; height: 14px; background: var(--yellow); border-radius: 50%;"></div>
           <h4 style="font-size: 1.25rem; color: var(--fg); margin-bottom: 0.5rem; letter-spacing: 0.05em;">30 OUT — Planificação</h4>
@@ -361,9 +379,9 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
         </div>
       </div>
     </div>
-    <div style="display: flex; flex-direction: column; gap: 2rem;">
-      <img src="4-LMF_0146.jpg" alt="A preparar evento" style="width: 100%; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
-      <img src="10-DSC_7889.jpg" alt="Backstage do momento" style="width: 100%; border-radius: 6px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+    <div style="display: flex; flex-direction: column; gap: 2rem;" id="pre-imgs-box">
+      <img src="4-LMF_0146.jpg" id="pi1" alt="A preparar evento" style="width: 100%; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.7);">
+      <img src="10-DSC_7889.jpg" id="pi2" alt="Backstage do momento" style="width: 100%; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.7); transform: translateX(2rem);">
     </div>
   </div>
 </section>
@@ -408,8 +426,10 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
   <div class="video-inner">
     <div class="video-eyebrow">Vídeo do Evento</div>
     <h2 class="video-h2">O <em>Seminário</em><br>em Movimento</h2>
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/Y-ZC-c48sno?rel=0&modestbranding=1" title="Seminário em Movimento" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-glow-wrap">
+      <div class="video-wrap" style="border-radius:12px; border:1px solid rgba(255,255,255,0.05);">
+        <iframe src="https://www.youtube.com/embed/Y-ZC-c48sno?rel=0&modestbranding=1" title="Seminário em Movimento" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -572,6 +592,77 @@ gsap.from('#conclusao p',{opacity:0,y:20,duration:0.8,stagger:0.2,ease:'power3.o
 const dots=document.querySelectorAll('.prog-dot');const sections=['hero','wave','instituicoes','pre-evento','gallery','video','programme','pap','agradecimentos','conclusao'];
 sections.forEach((id,i)=>{ScrollTrigger.create({trigger:'#'+id,start:'top center',end:'bottom center',onEnter:()=>{dots.forEach(d=>d.classList.remove('active'));dots[i].classList.add('active')},onEnterBack:()=>{dots.forEach(d=>d.classList.remove('active'));dots[i].classList.add('active')}})});
 dots.forEach(d=>{d.addEventListener('click',()=>{document.getElementById(d.dataset.target).scrollIntoView({behavior:'smooth'})})});
+
+/* ── PREMIUM DUST PARTICLES ── */
+for(let i=0; i<35; i++) {
+  let dust = document.createElement('div');
+  dust.className = 'hero-dust';
+  let size = Math.random()*3 + 1;
+  dust.style.width = size+'px'; dust.style.height = size+'px';
+  dust.style.left = Math.random()*100 + '%';
+  document.getElementById('hero').appendChild(dust);
+  gsap.fromTo(dust, 
+    {y: '100vh', opacity: 0},
+    {y: '-20vh', opacity: Math.random()*0.7+0.1, duration: Math.random()*15+15, repeat: -1, delay: Math.random()*-20, ease: 'none'}
+  );
+}
+document.addEventListener('mousemove', e=>{
+  let px = (e.clientX / window.innerWidth - 0.5) * 60;
+  let py = (e.clientY / window.innerHeight - 0.5) * 60;
+  gsap.to('.hero-dust', {x: px, y: py, duration: 2, ease: 'power2.out'});
+});
+
+/* ── DYNAMIC SPOTLIGHT CARDS ── */
+document.querySelectorAll('.skill-card').forEach(card=>{
+  card.addEventListener('mousemove', e=>{
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+  });
+});
+
+/* ── MAGNETIC BUTTONS ── */
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('mousemove', e=>{
+    const rect = btn.getBoundingClientRect();
+    const x = (e.clientX - rect.left) - rect.width/2;
+    const y = (e.clientY - rect.top) - rect.height/2;
+    gsap.to(btn, {x: x*0.4, y: y*0.4, scale: 1.05, duration: 0.3, ease: 'power2.out'});
+  });
+  btn.addEventListener('mouseleave', ()=>{
+    gsap.to(btn, {x: 0, y: 0, scale: 1, duration: 0.7, ease: 'elastic.out(1,0.3)'});
+  });
+});
+
+/* ── GIANT BG PARALLAX ── */
+if(document.getElementById('waveBgTxt')){
+  gsap.fromTo('#waveBgTxt', {x: '0%'}, {x: '-40%', scrollTrigger: {trigger: '#wave', start: 'top bottom', end: 'bottom top', scrub: 1}});
+}
+
+/* ── SMOOTH SCROLL (LENIS) Mestre ── */
+const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), direction: 'vertical', gestureDirection: 'vertical', smooth: true, mouseMultiplier: 1, smoothTouch: false, touchMultiplier: 2, infinite: false });
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
+gsap.ticker.lagSmoothing(0);
+
+/* ── MID-PAGE ANIMATIONS (PRE-EVENT, PAP) ── */
+gsap.to('.timeline-progress', {height: '100%', ease: 'none', scrollTrigger: { trigger: '.timeline-wrap', start: 'top center', end: 'bottom 40%', scrub: true }});
+if(document.getElementById('pi1')){
+  gsap.fromTo('#pi1', {y: 30}, {y: -30, ease: 'none', scrollTrigger: {trigger:'#pre-imgs-box', start:'top bottom', end:'bottom top', scrub:1}});
+  gsap.fromTo('#pi2', {y: -10}, {y: 50, ease: 'none', scrollTrigger: {trigger:'#pre-imgs-box', start:'top bottom', end:'bottom top', scrub:1}});
+}
+gsap.fromTo('.pap-img-wrap img', {yPercent: -8, scale: 1.1}, {yPercent: 8, scale: 1, ease: 'none', scrollTrigger: {trigger: '.pap-img-wrap', start: 'top bottom', end: 'bottom top', scrub: 1}});
+
+/* ── GALLERY DEEP PARALLAX Y-AXIS ── */
+gsap.utils.toArray('.g-item img').forEach(img => {
+  gsap.fromTo(img, 
+    {yPercent: -15}, 
+    {yPercent: 15, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true }}
+  );
+});
+
 </script>
 </body>
 </html>
