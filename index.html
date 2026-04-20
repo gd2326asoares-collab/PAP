@@ -660,7 +660,7 @@ tl.to('#hero-logos',{opacity:1,y:0,duration:0.8})
   .to('#scroll-hint',{opacity:1,duration:0.6},'-=0.2')
   .to('#hero-badge',{opacity:1, scale:1, duration:1, ease:'back.out(1.5)'},'-=0.5');
 }
-(function splitH1(){const h1=document.getElementById('hero-h1');h1.innerHTML='<span style="display:inline-block" class="decode-text" data-val="Da">Da&nbsp;</span><span style="display:inline-block" class="decode-text" data-val="Formação">Formação</span><br><span style="display:inline-block">à&nbsp;</span><span class="text-grad decode-text" data-val="Competição" style="display:inline-block">Competição</span>'})();
+(function splitH1(){const h1=document.getElementById('hero-h1');h1.innerHTML='<span style="display:inline-block" class="decode-text" data-val="Da">Da</span> <span style="display:inline-block" class="decode-text" data-val="Formação">Formação</span><br><span style="display:inline-block">à&nbsp;</span><span class="text-grad decode-text" data-val="Competição" style="display:inline-block">Competição</span>'})();
 
 /* ── NAV SOLID ── */
 window.addEventListener('scroll',()=>{document.getElementById('main-nav').classList.toggle('solid',window.scrollY>80)});
