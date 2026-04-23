@@ -171,8 +171,25 @@ nav.solid{background:rgba(10,10,10,0.88);backdrop-filter:blur(24px);padding:1.2r
 .prog-body h4{font-weight:600;font-size:1rem;color:var(--fg);margin-bottom:0.35rem;line-height:1.3}
 .prog-body p{font-size:1.05rem;font-weight:300;color:var(--muted);line-height:1.65;letter-spacing:0.01em}
 
-/* PAP */
-#pap{padding:10rem 4vw;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center}
+/* PAP — CORRIGIDO: isolation + z-index nos filhos diretos */
+#pap{
+  padding:10rem 4vw;
+  max-width:1300px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8rem;
+  align-items:center;
+  isolation:isolate;   /* ← CORREÇÃO: novo contexto de empilhamento */
+  position:relative;
+  z-index:1;
+}
+/* Garante que imagem e texto ficam sempre por cima do glow ::before */
+#pap > .pap-img-wrap,
+#pap > .pap-text {
+  position: relative;
+  z-index: 2;
+}
 .pap-img-wrap{position:relative; overflow: hidden; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);}
 .pap-img-wrap img{width:100%;height:650px;object-fit:cover;display:block;will-change:clip-path,transform}
 .pap-img-accent{position:absolute;bottom:-1.5rem;right:-1.5rem;width:120px;height:120px;background:var(--yellow);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2}
@@ -240,6 +257,7 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
 #instituicoes, #pre-evento, #programme, #pap { position: relative; z-index: 1; overflow: hidden; }
 #instituicoes::before { content:''; position: absolute; bottom: -20%; left: -10%; width: 700px; height: 700px; background: var(--yellow); filter: blur(250px); opacity: 0.12; z-index: -1; border-radius: 50%; pointer-events:none; }
 #programme::before { content:''; position: absolute; top: -10%; right: -20%; width: 800px; height: 800px; background: var(--accent); filter: blur(250px); opacity: 0.12; z-index: -1; border-radius: 50%; pointer-events:none; }
+/* PAP glow: z-index:-1 garante que fica atrás dos filhos com z-index:2 */
 #pap::before { content:''; position: absolute; bottom: 0%; left: 30%; width: 500px; height: 500px; background: var(--yellow); filter: blur(200px); opacity: 0.1; z-index: -1; border-radius: 50%; pointer-events:none; }
 .video-glow-wrap { position: relative; z-index: 5; }
 .video-glow-wrap::before { content:''; position: absolute; inset: -20px; background: var(--gradient); filter: blur(50px); opacity: 0.25; z-index: -1; border-radius: 12px; pointer-events: none; }
@@ -342,6 +360,7 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
 <div id="prog-indicator">
   <div class="prog-dot active" data-target="hero"></div>
   <div class="prog-dot" data-target="wave"></div>
+  <div class="prog-dot" data-target="planeamento"></div>
   <div class="prog-dot" data-target="instituicoes"></div>
   <div class="prog-dot" data-target="pre-evento"></div>
   <div class="prog-dot" data-target="gallery"></div>
@@ -356,6 +375,7 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
   <a href="#hero" class="nav-mark">SI <em>·</em> 25</a>
   <ul class="nav-links">
     <li><a href="#wave">Projeto</a></li>
+    <li><a href="#planeamento">Planeamento</a></li>
     <li><a href="#instituicoes">Instituições</a></li>
     <li><a href="#pre-evento">Pré-Evento</a></li>
     <li><a href="#gallery">Media</a></li>
@@ -419,6 +439,46 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
   </div>
 </div>
 
+<!-- SECÇÃO PLANEAMENTO, ORGANIZAÇÃO E EXECUÇÃO -->
+<section id="planeamento" style="padding: 10rem 4vw; background: var(--bg); position: relative; overflow: hidden;">
+  <div style="position:absolute; top:-10%; right:-15%; width:600px; height:600px; background:var(--yellow); filter:blur(260px); opacity:0.07; border-radius:50%; pointer-events:none; z-index:0;"></div>
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index:1;">
+    <div class="video-eyebrow" id="plan-eyebrow">O Processo</div>
+    <h2 class="video-h2" style="margin-bottom: 4rem;">Planeamento,<br><em>Organização</em> e Execução</h2>
+    <div style="max-width: 780px; margin-bottom: 5rem;" id="plan-desc">
+      <p style="font-size: var(--body); font-weight: 300; color: var(--muted); line-height: 1.85; margin-bottom: 1.2rem;">O processo de organização do evento desenvolveu-se em várias fases, desde o <strong>planeamento inicial</strong> até à <strong>execução e avaliação final</strong>.</p>
+      <p style="font-size: var(--body); font-weight: 300; color: var(--muted); line-height: 1.85; margin-bottom: 1.2rem;">Incluiu a definição de objetivos, organização da equipa, preparação logística e acompanhamento do evento, <strong>garantindo o bom funcionamento de todas as atividades</strong>.</p>
+      <p style="font-size: var(--body); font-weight: 300; color: var(--muted); line-height: 1.85;">No final, foi feita uma análise global, permitindo avaliar os resultados e <strong>retirar conclusões para futuras experiências</strong>.</p>
+    </div>
+    <div id="plan-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+      <div class="skill-card plan-card" style="border-top-color: rgba(240,180,41,0.5);">
+        <div style="font-size: 2rem; margin-bottom: 1rem; line-height:1;">🎯</div>
+        <div class="skill-num">FASE 01</div>
+        <div class="skill-title">Planeamento</div>
+        <div class="skill-desc">Definição dos objetivos do evento, estruturação da equipa e identificação das tarefas a executar em cada fase do projeto.</div>
+      </div>
+      <div class="skill-card plan-card" style="border-top-color: rgba(224,92,42,0.5);">
+        <div style="font-size: 2rem; margin-bottom: 1rem; line-height:1;">🗂️</div>
+        <div class="skill-num">FASE 02</div>
+        <div class="skill-title">Organização</div>
+        <div class="skill-desc">Coordenação dos recursos humanos e materiais, preparação da comunicação institucional e logística de suporte ao seminário.</div>
+      </div>
+      <div class="skill-card plan-card" style="border-top-color: rgba(240,180,41,0.5);">
+        <div style="font-size: 2rem; margin-bottom: 1rem; line-height:1;">⚙️</div>
+        <div class="skill-num">FASE 03</div>
+        <div class="skill-title">Execução</div>
+        <div class="skill-desc">Implementação no terreno: montagem do espaço, acreditação dos participantes, apoio a oradores e acompanhamento de todas as sessões.</div>
+      </div>
+      <div class="skill-card plan-card" style="border-top-color: rgba(224,92,42,0.5);">
+        <div style="font-size: 2rem; margin-bottom: 1rem; line-height:1;">📊</div>
+        <div class="skill-num">FASE 04</div>
+        <div class="skill-title">Avaliação</div>
+        <div class="skill-desc">Análise global dos resultados obtidos, reflexão sobre o desempenho individual e extração de conclusões para experiências profissionais futuras.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="instituicoes" style="padding: 10rem 4vw; background: var(--bg2);">
   <div style="max-width: 1200px; margin: 0 auto;">
     <div class="video-eyebrow">Parceiros Principais</div>
@@ -450,6 +510,11 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
       <h2 class="video-h2">Fase <em>Pré-Evento</em></h2>
       <div class="timeline-wrap" style="position:relative; border-left: 2px solid var(--border); padding-left: 2.5rem; display: flex; flex-direction: column; gap: 3rem; margin-top: 4rem;">
         <div class="timeline-progress" style="position:absolute; top:0; left:-2px; width:2px; height:0%; background:var(--gradient); box-shadow:0 0 15px var(--yellow); z-index:1;"></div>
+        <div style="position: relative;">
+          <div style="position: absolute; left: -2.9rem; top: 0.2rem; width: 14px; height: 14px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent);"></div>
+          <h4 style="font-size: 1.25rem; color: var(--fg); margin-bottom: 0.5rem; letter-spacing: 0.05em;">Procura &amp; Contacto com as Entidades</h4>
+          <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.6;">Procurei um evento que me permitisse uma experiência real, tendo encontrado o seminário através da <strong>Câmara Municipal de Matosinhos</strong>. Após contacto com a Matosinhos Sport, fui encaminhado para o <strong>IPDJ</strong>, onde passei a integrar a equipa de organização do evento.</p>
+        </div>
         <div style="position: relative;">
           <div style="position: absolute; left: -2.9rem; top: 0.2rem; width: 14px; height: 14px; background: var(--yellow); border-radius: 50%;"></div>
           <h4 style="font-size: 1.25rem; color: var(--fg); margin-bottom: 0.5rem; letter-spacing: 0.05em;">30 OUT — Planificação</h4>
@@ -547,6 +612,7 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
   </div>
 </section>
 
+<!-- SECÇÃO PAP — CORRIGIDA -->
 <section id="pap" style="position:relative; z-index:1;">
   <div class="pap-marquee-wrap"><div class="pap-marquee">GESTÃO DESPORTIVA ✦ GESTÃO DESPORTIVA ✦ GESTÃO DESPORTIVA ✦ GESTÃO DESPORTIVA ✦ </div></div>
   <div class="pap-ring" style="position:absolute; top:50%; left:25%; transform:translate(-50%,-50%); width:650px; height:650px; border:1px solid rgba(240,180,41,0.05); border-radius:50%; pointer-events:none; z-index:-1; border-top-color:rgba(240,180,41,0.25); animation: spinRing 25s linear infinite;"></div>
@@ -555,11 +621,12 @@ footer{background:#060606;border-top:1px solid var(--border);padding:5rem 4vw 3r
     <div class="pap-img-accent"><strong>PAP</strong><span>2025/26</span></div>
   </div>
   <div class="pap-text">
+    <!-- CORREÇÃO: "Prova de Aptidão" → "Prova de Aptidão Profissional" -->
     <div class="eyebrow">Prova de Aptidão Profissional</div>
     <h2>Gestão<br><em>Desportiva</em></h2>
     <p>Integração na equipa organizadora do Seminário, aplicando competências adquiridas ao longo do Curso Profissional de Técnico de Apoio à Gestão Desportiva.</p>
     <div class="skills-grid">
-      <div class="skill-card"><div class="skill-num">01</div><div class="skill-title">Apoio Logístico</div><div class="skill-desc">Montagem de espaço, púlpitos e banners na véspera do evento.</div></div>
+      <div class="skill-card"><div class="skill-num">01</div><div class="skill-title">Apoio Logístico</div><div class="skill-desc">Montagem de espaço, púlpitos e banners na antevéspera do evento.</div></div>
       <div class="skill-card"><div class="skill-num">02</div><div class="skill-title">Comunicação</div><div class="skill-desc">Pesquisa de redes e perfis sociais de oradores para materiais promocionais.</div></div>
       <div class="skill-card"><div class="skill-num">03</div><div class="skill-title">Receção</div><div class="skill-desc">Acreditação de participantes, orientação no espaço e apoio direto a oradores.</div></div>
       <div class="skill-card"><div class="skill-num">04</div><div class="skill-title">Avaliação</div><div class="skill-desc">Acompanhamento e distribuição de panfletos informativos no encerramento.</div></div>
@@ -707,10 +774,14 @@ gsap.fromTo('.video-wrap video',{scale:1.15},{scale:1,ease:'none',scrollTrigger:
 document.querySelectorAll('.skill-card').forEach((c,i)=>{gsap.fromTo(c,{opacity:0,y:30},{opacity:1,y:0,duration:0.6,delay:i*0.1,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 85%'}})});
 gsap.from('#pre-evento h4, #pre-evento p',{opacity:0,x:-30,duration:0.6,stagger:0.1,ease:'power3.out',scrollTrigger:{trigger:'#pre-evento',start:'top 70%'}});
 gsap.from('#pre-evento img',{opacity:0,y:40,duration:0.8,stagger:0.2,ease:'power4.out',scrollTrigger:{trigger:'#pre-evento',start:'top 60%'}});
+
+/* PLANEAMENTO SECTION ANIMS */
+gsap.from('#plan-eyebrow, #plan-desc p',{opacity:0,y:30,duration:0.8,stagger:0.15,ease:'power3.out',scrollTrigger:{trigger:'#planeamento',start:'top 72%'}});
+gsap.fromTo('#plan-cards .plan-card',{opacity:0,y:50,scale:0.92},{opacity:1,y:0,scale:1,duration:0.9,stagger:0.12,ease:'back.out(1.5)',scrollTrigger:{trigger:'#plan-cards',start:'top 82%'}});
 gsap.from('#conclusao p',{opacity:0,y:20,duration:0.8,stagger:0.2,ease:'power3.out',scrollTrigger:{trigger:'#conclusao',start:'top 75%'}});
 
 /* ── PROGRESS DOTS ── */
-const dots=document.querySelectorAll('.prog-dot');const sections=['hero','wave','instituicoes','pre-evento','gallery','video','programme','pap','agradecimentos','conclusao'];
+const dots=document.querySelectorAll('.prog-dot');const sections=['hero','wave','planeamento','instituicoes','pre-evento','gallery','video','programme','pap','agradecimentos','conclusao'];
 sections.forEach((id,i)=>{ScrollTrigger.create({trigger:'#'+id,start:'top center',end:'bottom center',onEnter:()=>{dots.forEach(d=>d.classList.remove('active'));dots[i].classList.add('active')},onEnterBack:()=>{dots.forEach(d=>d.classList.remove('active'));dots[i].classList.add('active')}})});
 dots.forEach(d=>{d.addEventListener('click',()=>{document.getElementById(d.dataset.target).scrollIntoView({behavior:'smooth'})})});
 
@@ -891,9 +962,9 @@ if(canvas) {
       let p=particles[i];
       p.x+=p.vx; p.y+=p.vy;
       if(p.x<0||p.x>cw) p.vx*=-1; if(p.y<0||p.y>ch) p.vy*=-1;
-      let dx = mx - p.x, dy = my - p.y;
-      let dist = Math.sqrt(dx*dx+dy*dy);
-      if(dist < 200) { p.x -= dx*0.015; p.y -= dy*0.015; }
+      let dx2 = mx - p.x, dy2 = my - p.y;
+      let dist = Math.sqrt(dx2*dx2+dy2*dy2);
+      if(dist < 200) { p.x -= dx2*0.015; p.y -= dy2*0.015; }
       ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
       for(let j=i+1;j<particles.length;j++){
         let p2=particles[j];
@@ -956,7 +1027,6 @@ if(vw && vc){
   let rTime=0; setInterval(()=>{rTime++; let m=Math.floor(rTime/60).toString().padStart(2,'0'); let s=(rTime%60).toString().padStart(2,'0'); if(vt)vt.innerText=`REC 00:${m}:${s}`;}, 1000);
 }
 
-
 /* CINEMATIC INFINITE LOOP */
 const veil = document.getElementById('supernova-veil');
 if(veil){
@@ -971,7 +1041,6 @@ if(veil){
     }
   });
 }
-
 </script>
 </body>
 </html>
